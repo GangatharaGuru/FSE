@@ -35,8 +35,8 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void addUser(User user) {
 		// TODO Auto-generated method stub		
-		try(Connection connection =jdbcTemplate.getDataSource().getConnection()){
-			
+		//try(Connection connection =jdbcTemplate.getDataSource().getConnection()){
+		try{
 			jdbcTemplate.update(INSERT_SQL, new PreparedStatementSetter() {				
 				@Override
 				public void setValues(PreparedStatement pstmt) throws SQLException {
@@ -59,8 +59,8 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void deleteUser(User user) {
 		// TODO Auto-generated method stub		
-		try(Connection connection =jdbcTemplate.getDataSource().getConnection()){
-
+		//try(Connection connection =jdbcTemplate.getDataSource().getConnection()){
+		try{
 			jdbcTemplate.update(DELETE_SQL, new PreparedStatementSetter() {				
 				@Override
 				public void setValues(PreparedStatement pstmt) throws SQLException {
@@ -79,8 +79,8 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void updateUser(User user) {
 		// TODO Auto-generated method stub		
-		try(Connection connection =jdbcTemplate.getDataSource().getConnection()){
-
+		//try(Connection connection =jdbcTemplate.getDataSource().getConnection()){
+		try{
 			jdbcTemplate.update(UPDATE_SQL, new PreparedStatementSetter() {				
 				@Override
 				public void setValues(PreparedStatement pstmt) throws SQLException {
@@ -105,9 +105,10 @@ public class UserDAOImpl implements UserDAO {
 	public List<User> listUsers(User user) {
 		// TODO Auto-generated method stub		
 		List<User> users = new ArrayList<>();;
-			try(Connection connection =jdbcTemplate.getDataSource().getConnection()){	
+		//	try(Connection connection =jdbcTemplate.getDataSource().getConnection()){	
 			//;	System.out.println("Connection="+connection);			
-				 users =	jdbcTemplate.query("select * from users", new RowMapper<User>(){
+		try{	
+			users =	jdbcTemplate.query("select * from users", new RowMapper<User>(){
 					@Override
 					public User mapRow(ResultSet rs, int arg1) throws SQLException {
 						// TODO Auto-generated method stub
@@ -138,8 +139,9 @@ public class UserDAOImpl implements UserDAO {
 	public User getUser(int id) {
 		// TODO Auto-generated method stub		
 		List<User> users =new ArrayList<>();;
-			try(Connection connection =jdbcTemplate.getDataSource().getConnection()){	
-				//System.out.println("Connection="+connection);			
+			//try(Connection connection =jdbcTemplate.getDataSource().getConnection()){	
+				//System.out.println("Connection="+connection);
+		try{
 				 users =	jdbcTemplate.query("select * from users where userid="+id, new RowMapper<User>(){
 					@Override
 					public User mapRow(ResultSet rs, int arg1) throws SQLException {
@@ -169,8 +171,9 @@ public class UserDAOImpl implements UserDAO {
 	public User getUserbyProjectId(int projectId) {
 		// TODO Auto-generated method stub		
 		List<User> users = null;
-			try(Connection connection =jdbcTemplate.getDataSource().getConnection()){	
-				//System.out.println("Connection="+connection);			
+			//try(Connection connection =jdbcTemplate.getDataSource().getConnection()){	
+				//System.out.println("Connection="+connection);		
+				try{
 				 users =	jdbcTemplate.query("select * from users where projectid="+projectId, new RowMapper<User>(){
 					@Override
 					public User mapRow(ResultSet rs, int arg1) throws SQLException {
@@ -201,8 +204,9 @@ public class UserDAOImpl implements UserDAO {
 	public User getUserbyTaskId(int taskId) {
 		// TODO Auto-generated method stub		
 		List<User> users = null;
-			try(Connection connection =jdbcTemplate.getDataSource().getConnection()){	
-				//System.out.println("Connection="+connection);			
+			//try(Connection connection =jdbcTemplate.getDataSource().getConnection()){	
+				//System.out.println("Connection="+connection);	
+		try{
 				 users =	jdbcTemplate.query("select * from users where taskid="+taskId, new RowMapper<User>(){
 					@Override
 					public User mapRow(ResultSet rs, int arg1) throws SQLException {

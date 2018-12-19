@@ -38,7 +38,7 @@ public class ProjectDAOImpl implements ProjectDAO {
 
 	private String SELECT_PROJECTSDETAILS_SQL ="SELECT A.PROJECTID,A.TITLE,A.STARTDATE,A.ENDDATE,A.PRIORITY,D.USERID,D.FirstName,D.LastName"
 			+",C.TASKID,C.TITLE, C.STATUS FROM PROJECTS A left outer join USERS D on (D.PROJECTID=A.PROJECTID)"  
-			+"left outer join TASKS C on(C.PROJECTID = A.PROJECTID)  GROUP BY A.PROJECTID,A.TITLE,C.STATUS;";
+			+"left outer join TASKS C on(C.PROJECTID = A.PROJECTID)  GROUP BY A.PROJECTID,A.TITLE,C.STATUS";
 
 
 	@Override
@@ -109,16 +109,16 @@ public class ProjectDAOImpl implements ProjectDAO {
 	public int addProject(Projects project) {
 		// TODO Auto-generated method stub		
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		try(Connection connection =jdbcTemplate.getDataSource().getConnection()){
+		//try(Connection connection =jdbcTemplate.getDataSource().getConnection()){
 
-
+			try{
 			jdbcTemplate.update(new PreparedStatementCreator() {
 
 				@Override
 				public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 					// TODO Auto-generated method stub
 
-					PreparedStatement pstmt = connection
+					PreparedStatement pstmt = con
 							.prepareStatement(INSERT_SQL,Statement.RETURN_GENERATED_KEYS);
 
 					pstmt.setString(1, project.getProjectName());
@@ -151,8 +151,8 @@ public class ProjectDAOImpl implements ProjectDAO {
 	@Override
 	public void deleteProject(Project project) {
 		// TODO Auto-generated method stub		
-		try(Connection connection =jdbcTemplate.getDataSource().getConnection()){
-
+		//try(Connection connection =jdbcTemplate.getDataSource().getConnection()){
+		try{
 			jdbcTemplate.update(DELETE_SQL, new PreparedStatementSetter() {				
 				@Override
 				public void setValues(PreparedStatement pstmt) throws SQLException {
@@ -171,8 +171,8 @@ public class ProjectDAOImpl implements ProjectDAO {
 	@Override
 	public void updateProject(Projects project) {
 		// TODO Auto-generated method stub		
-		try(Connection connection =jdbcTemplate.getDataSource().getConnection()){
-
+		//try(Connection connection =jdbcTemplate.getDataSource().getConnection()){
+		try{
 			jdbcTemplate.update(UPDATE_SQL, new PreparedStatementSetter() {				
 				@Override
 				public void setValues(PreparedStatement pstmt) throws SQLException {
@@ -198,8 +198,9 @@ public class ProjectDAOImpl implements ProjectDAO {
 	public List<Projects> listProjects(Projects project) {
 		// TODO Auto-generated method stub
 		List<Projects> projects = new ArrayList<>();
-		try(Connection connection =jdbcTemplate.getDataSource().getConnection()){	
-			logger.debug("Connection="+connection);			
+		//try(Connection connection =jdbcTemplate.getDataSource().getConnection()){	
+			//logger.debug("Connection="+connection);
+		try{
 			projects =	jdbcTemplate.query("select * from projects", new RowMapper<Projects>(){
 				@Override
 				public Projects mapRow(ResultSet rs, int arg1) throws SQLException {
@@ -234,8 +235,9 @@ public class ProjectDAOImpl implements ProjectDAO {
 	public Projects getProject(int projectId) {
 		// TODO Auto-generated method stub
 		List<Projects> projects = new ArrayList<>();
-		try(Connection connection =jdbcTemplate.getDataSource().getConnection()){	
-			logger.debug("Connection="+connection);			
+		//try(Connection connection =jdbcTemplate.getDataSource().getConnection()){	
+			//logger.debug("Connection="+connection);
+		try{
 			projects =	jdbcTemplate.query(" SELECT PROJECTS.PROJECTID,PROJECTS.TITLE,PROJECTS.STARTDATE,PROJECTS.ENDDATE,"
 					+"PROJECTS.PRIORITY,USERS.FIRSTNAME,USERS.LASTNAME FROM PROJECTS left outer join "   
 					+" USERS on(PROJECTS.PROJECTID = USERS.PROJECTID ) where PROJECTS.PROJECTID="+projectId, new RowMapper<Projects>(){

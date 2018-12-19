@@ -88,7 +88,7 @@ public class ProjectService {
 				return false;
 			}).collect(Collectors.toList());
 			
-			if(pendingtasklsist !=null && pendingtasklsist.size()==0){
+			if(pendingtasklsist !=null && pendingtasklsist.size()!=0){
 			project.setCompleted("No");
 			}else{
 				project.setCompleted("Yes");	
@@ -100,6 +100,12 @@ public class ProjectService {
 		return projectdetails;
 	}
 	
+	
+
+
+
+
+
 	@POST
 	@Path("/addProject")
 	@Produces("application/json")
@@ -152,6 +158,14 @@ public class ProjectService {
 		logger.debug("calling service deleteProject");
 		projectDAO.deleteProject(project);;		
 		return project.getTitle()+" has been deleted successfully";
+	}
+	
+	
+	public void setProjectDAO(ProjectDAO projectDAO) {
+		this.projectDAO = projectDAO;
+	}
+	public void setUserDAO(UserDAO userDAO) {
+		this.userDAO = userDAO;
 	}
 
 }

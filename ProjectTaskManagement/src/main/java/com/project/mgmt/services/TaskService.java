@@ -81,6 +81,22 @@ public class TaskService {
 	}
 	
 	
+	
+	public void setTaskDAO(TaskDAO taskDAO) {
+		this.taskDAO = taskDAO;
+	}
+
+
+	public void setParentTaskDAO(ParentTaskDAO parentTaskDAO) {
+		this.parentTaskDAO = parentTaskDAO;
+	}
+
+
+	public void setUserDAO(UserDAO userDAO) {
+		this.userDAO = userDAO;
+	}
+
+
 	@POST
 	@Path("/addTask")
 	@Produces("application/json")

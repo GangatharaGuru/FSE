@@ -9,12 +9,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.project.mgmt.dao.ManagerDAO;
 import com.project.mgmt.dao.ParentTaskDAO;
 import com.project.mgmt.dao.ProjectDAO;
 import com.project.mgmt.dao.TaskDAO;
 import com.project.mgmt.dao.UserDAO;
-import com.project.mgmt.dao.impl.ManagerDAOImpl;
 import com.project.mgmt.dao.impl.ParentTaskDAOImpl;
 import com.project.mgmt.dao.impl.ProjectDAOImpl;
 import com.project.mgmt.dao.impl.TaskDAOImpl;
@@ -27,7 +25,9 @@ public class ApplicationConfig {
 	@Primary
 	@ConfigurationProperties("spring.datasource")
 	public DataSourceProperties taskDataSourceProperties() {
-		return new DataSourceProperties();
+		DataSourceProperties properties =new DataSourceProperties();
+		//System.out.println(properties);
+		return properties;
 	}
 
 	@Bean	
@@ -68,12 +68,7 @@ public class ApplicationConfig {
 		return parentDAO;
 	}
 	
-	@Bean
-	public ManagerDAO managerDAO(){
-		ManagerDAO managerDAO = new ManagerDAOImpl();
-		managerDAO.setJdbcTemplate(jdbcTemplate());
-		return managerDAO;
-	}
+
 	
 
 }

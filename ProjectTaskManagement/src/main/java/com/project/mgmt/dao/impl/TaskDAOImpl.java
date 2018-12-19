@@ -37,8 +37,8 @@ public class TaskDAOImpl implements TaskDAO {
 	
 	
 	private String SELECT_ALL_TASKS_DETAILS ="SELECT A.PROJECTID,A.TITLE,C.STARTDATE,C.ENDDATE,"
-											+ "A.PRIORITY,B.MANAGERNAME,C.TASKID,C.TITLE,C.PRIORITY,C.STATUS,D.PARENTTASKID,D.PARENTTASKTITLE "
-											+ "FROM PROJECTS A, MANAGER B , TASKS C,PARENTTASK D "
+											+ "A.PRIORITY,B.FIRSTNAME,C.TASKID,C.TITLE,C.PRIORITY,C.STATUS,D.PARENTTASKID,D.PARENTTASKTITLE "
+											+ "FROM PROJECTS A, USERS B , TASKS C,PARENTTASK D "
 											+"WHERE A.PROJECTID= B.PROJECTID  AND A.PROJECTID= C.PROJECTID "
 											+ "AND D.PARENTTASKID = C.PARENTTASKID ";
 	
@@ -65,8 +65,9 @@ public class TaskDAOImpl implements TaskDAO {
 	public List<Tasks> listTaskswithdetails() {
 		// TODO Auto-generated method stub
 		List<Tasks> tasks = null;
-		try(Connection connection =jdbcTemplate.getDataSource().getConnection()){	
+		//try(Connection connection =jdbcTemplate.getDataSource().getConnection()){	
 			//System.out.println("Connection="+connection);			
+		try{	
 			tasks =	jdbcTemplate.query(SELECT_ALL_TASKS_DETAILS, new RowMapper<Tasks>(){
 				@Override
 				public Tasks mapRow(ResultSet rs, int arg1) throws SQLException {
@@ -104,15 +105,15 @@ public class TaskDAOImpl implements TaskDAO {
 		// TODO Auto-generated method stub	
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		int key =0;
-		try(Connection connection =jdbcTemplate.getDataSource().getConnection()){
-			
+		//try(Connection connection =jdbcTemplate.getDataSource().getConnection()){
+		try{	
 			jdbcTemplate.update(new PreparedStatementCreator() {
 				
 				@Override
 				public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 					// TODO Auto-generated method stub
 					
-					PreparedStatement pstmt = connection
+					PreparedStatement pstmt = con
 					          .prepareStatement(INSERT_SQL,Statement.RETURN_GENERATED_KEYS);
 					
 					pstmt.setInt(1, task.getParentTaskId());
@@ -153,8 +154,8 @@ public class TaskDAOImpl implements TaskDAO {
 	@Override
 	public void deleteTask(Task task) {
 		// TODO Auto-generated method stub		
-		try(Connection connection =jdbcTemplate.getDataSource().getConnection()){
-
+		//try(Connection connection =jdbcTemplate.getDataSource().getConnection()){
+		try{
 			jdbcTemplate.update(DELETE_SQL, new PreparedStatementSetter() {				
 				@Override
 				public void setValues(PreparedStatement pstmt) throws SQLException {
@@ -172,8 +173,8 @@ public class TaskDAOImpl implements TaskDAO {
 	@Override
 	public void updateTask(Task task) {
 		// TODO Auto-generated method stub		
-		try(Connection connection =jdbcTemplate.getDataSource().getConnection()){
-
+	//	try(Connection connection =jdbcTemplate.getDataSource().getConnection()){
+		try{
 			jdbcTemplate.update(UPDATE_SQL, new PreparedStatementSetter() {				
 				@Override
 				public void setValues(PreparedStatement pstmt) throws SQLException {
@@ -214,8 +215,8 @@ public class TaskDAOImpl implements TaskDAO {
 	public List<Task> listTasks(Task task) {
 		// TODO Auto-generated method stub
 		List<Task> tasks =  new ArrayList<>();;
-		try(Connection connection =jdbcTemplate.getDataSource().getConnection()){	
-					
+	//	try(Connection connection =jdbcTemplate.getDataSource().getConnection()){	
+		try{		
 			tasks =	jdbcTemplate.query(SELECT_TASKS_DETAILS, new RowMapper<Task>(){
 				@Override
 				public Task mapRow(ResultSet rs, int arg1) throws SQLException {
@@ -261,8 +262,8 @@ public class TaskDAOImpl implements TaskDAO {
 	public Task getTask(int taskId) {
 		// TODO Auto-generated method stub
 		List<Task> tasks = null;
-		try(Connection connection =jdbcTemplate.getDataSource().getConnection()){	
-					
+		//try(Connection connection =jdbcTemplate.getDataSource().getConnection()){	
+		try{		
 			tasks =	jdbcTemplate.query(SELECT_TASK_DETAIL +" where TASKS.TASKID="+taskId, new RowMapper<Task>(){
 				@Override
 				public Task mapRow(ResultSet rs, int arg1) throws SQLException {

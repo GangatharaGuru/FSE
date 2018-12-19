@@ -68,4 +68,11 @@ public class ParentTaskService {
 		return parentTask.getParentTaskTitle()+" has been deleted successfully";
 	}
 
+
+	public void setParentTaskDAO(ParentTaskDAO parentTaskDAO) {
+		this.parentTaskDAO = parentTaskDAO;
+	}
+	
+	
+
 }

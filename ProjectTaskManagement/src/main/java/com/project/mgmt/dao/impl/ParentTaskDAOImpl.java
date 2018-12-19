@@ -30,8 +30,8 @@ public class ParentTaskDAOImpl implements ParentTaskDAO {
 	@Override
 	public void addParentTask(ParentTask task) {
 		// TODO Auto-generated method stub		
-		try(Connection connection =jdbcTemplate.getDataSource().getConnection()){
-			
+		//try(Connection connection =jdbcTemplate.getDataSource().getConnection()){
+			try{
 			jdbcTemplate.update(INSERT_SQL, new PreparedStatementSetter() {				
 				@Override
 				public void setValues(PreparedStatement pstmt) throws SQLException {
@@ -50,8 +50,8 @@ public class ParentTaskDAOImpl implements ParentTaskDAO {
 	@Override
 	public void deleteParentTask(ParentTask task) {
 		// TODO Auto-generated method stub		
-		try(Connection connection =jdbcTemplate.getDataSource().getConnection()){
-
+		//try(Connection connection =jdbcTemplate.getDataSource().getConnection()){
+		try{
 			jdbcTemplate.update(DELETE_SQL, new PreparedStatementSetter() {				
 				@Override
 				public void setValues(PreparedStatement pstmt) throws SQLException {
@@ -70,8 +70,8 @@ public class ParentTaskDAOImpl implements ParentTaskDAO {
 	@Override
 	public void updateParentTask(ParentTask task) {
 		// TODO Auto-generated method stub		
-		try(Connection connection =jdbcTemplate.getDataSource().getConnection()){
-
+		//try(Connection connection =jdbcTemplate.getDataSource().getConnection()){
+		try{
 			jdbcTemplate.update(UPDATE_SQL, new PreparedStatementSetter() {				
 				@Override
 				public void setValues(PreparedStatement pstmt) throws SQLException {
@@ -92,8 +92,9 @@ public class ParentTaskDAOImpl implements ParentTaskDAO {
 	public List<Task> listParentTasks(ParentTask task) {
 		// TODO Auto-generated method stub
 		List<Task> parentTasks = new ArrayList<>();
-		try(Connection connection =jdbcTemplate.getDataSource().getConnection()){	
-			logger.debug("Connection="+connection);			
+		//try(Connection connection =jdbcTemplate.getDataSource().getConnection()){	
+		//	logger.debug("Connection="+connection);
+		try{
 			parentTasks =	jdbcTemplate.query("select * from parenttask", new RowMapper<Task>(){
 				@Override
 				public Task mapRow(ResultSet rs, int arg1) throws SQLException {

@@ -92,4 +92,10 @@ public class UserService {
 		userDAO.deleteUser(user);;		
 		return Response.status(200).build();
 	}
+
+	public void setUserDAO(UserDAO userDAO) {
+		this.userDAO = userDAO;
+	}
+	
+	
 }
